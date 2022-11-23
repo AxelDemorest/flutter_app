@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/Models/Users/userModel.dart';
+import 'package:flutter_app/config/database.dart';
+import 'package:mongo_dart/mongo_dart.dart' as M;
 
 class Register extends StatefulWidget {
   const Register({Key? key, required this.title}) : super(key: key);
@@ -63,7 +66,7 @@ class _RegisterState extends State<Register> {
                                         },
                                       )),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 30),
+                                      margin: const EdgeInsets.only(top: 20),
                                       child: TextFormField(
                                         controller: firstNameController,
                                         decoration: const InputDecoration(
@@ -79,7 +82,7 @@ class _RegisterState extends State<Register> {
                                         },
                                       )),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 30),
+                                      margin: const EdgeInsets.only(top: 20),
                                       child: TextFormField(
                                         controller: ageController,
                                         keyboardType: TextInputType.number,
@@ -99,7 +102,7 @@ class _RegisterState extends State<Register> {
                                         },
                                       )),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 30),
+                                      margin: const EdgeInsets.only(top: 20),
                                       child: TextFormField(
                                         controller: mailController,
                                         decoration: const InputDecoration(
@@ -118,7 +121,7 @@ class _RegisterState extends State<Register> {
                                         },
                                       )),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 30),
+                                      margin: const EdgeInsets.only(top: 20),
                                       child: TextFormField(
                                         controller: phoneController,
                                         keyboardType: TextInputType.number,
@@ -142,27 +145,39 @@ class _RegisterState extends State<Register> {
                                         },
                                       )),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      child: CheckboxListTile(
-                                        title: const Text('Propriétaire'),
-                                        value: isOwner,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isOwner = value!;
-                                          });
-                                        },
-                                      )),
-                                  CheckboxListTile(
-                                    title: const Text('Demi pensionnaire'),
-                                    value: isHalfBoarder,
-                                    onChanged: (bool? value) {
-                                      setState(() {
-                                        isHalfBoarder = value!;
-                                      });
-                                    },
+                                    margin: const EdgeInsets.only(top: 20),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 6,
+                                            child: CheckboxListTile(
+                                              title: const Text('Propriétaire'),
+                                              value: isOwner,
+                                              onChanged: (bool? value) {
+                                                setState(() {
+                                                  isOwner = value!;
+                                                });
+                                              },
+                                            )),
+                                        Expanded(
+                                          flex: 4,
+                                          child: CheckboxListTile(
+                                            title: const Text('DP'),
+                                            value: isHalfBoarder,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                isHalfBoarder = value!;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(
-                                      width: 4000,
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 20),
+                                      width: 250,
+                                      height: 50,
                                       child: TextButton(
                                         style: ButtonStyle(
                                           shape: MaterialStateProperty.all<
@@ -178,20 +193,42 @@ class _RegisterState extends State<Register> {
                                               MaterialStateProperty.all<Color>(
                                                   Colors.orangeAccent),
                                         ),
-                                        onPressed: () {
-                                          if (formKey.currentState!.validate()) {
-                                            if(!isHalfBoarder && !isOwner) {
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                backgroundColor: Colors.red[300],
+                                        onPressed: () async {
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            if (!isHalfBoarder && !isOwner) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                backgroundColor:
+                                                    Colors.red[300],
                                                 content: Row(
                                                   children: const [
                                                     Icon(Icons.error),
-                                                    Text('Veuillez cocher une des deux cases')
+                                                    Text(
+                                                        'Veuillez cocher une des deux cases')
                                                   ],
                                                 ),
                                               ));
                                             } else {
-
+                                              User user = User(
+                                                  M.ObjectId(),
+                                                  firstNameController.text,
+                                                  mailController.text,
+                                                  lastNameController.text,
+                                                  phoneController.text,
+                                                  int.parse(
+                                                      ageController.text));
+                                              var userJson = {
+                                                '_id': user.id,
+                                                'name': user.name,
+                                                'lastName': user.lastName,
+                                                'email': user.email,
+                                                'phone': user.phone,
+                                                'age': user.age
+                                              };
+                                              await MongoDatabase.insertUser(userJson);
                                             }
                                           }
                                         },
