@@ -1,6 +1,6 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
-class Event{
+abstract class Event{
   final ObjectId id;
   final String name;
   final String date;
