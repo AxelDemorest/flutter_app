@@ -8,6 +8,5 @@ class MongoDatabase {
     var db = await Db.create(mongoUrl);
     await db.open();
     inspect(db);
-    var collection = db.collection(collectionName);
   }
 }
