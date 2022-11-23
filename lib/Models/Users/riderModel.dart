@@ -4,8 +4,23 @@ import '../horseModel.dart';
 
 class Rider extends User{
   String linkFFE;
-  List<Horse> listRiderHorse;
+  bool isDp;
+  bool isOwner;
+  List<Horse> listOwnerHorse;
+  List<Horse> listDPHorse;
 
-  Rider(super.id, super.name, super.email, super.lastName, super.phone, super.age, this.linkFFE, this.listRiderHorse);
+  Rider(
+      super.id,
+      super.name,
+      super.email,
+      super.lastName,
+      super.phone,
+      super.age,
+      this.linkFFE,
+      this.isOwner,
+      this.isDp,
+      this.listOwnerHorse,
+      this.listDPHorse
+      );
 
 }
