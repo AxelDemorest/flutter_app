@@ -12,10 +12,16 @@ class MongoDatabase {
     userCollection = db.collection(collectionName);
   }
 
-  static Future<Object> getUserByEmail(email, password) async {
+  //Verifie si l'email et le mot passe correspondent à un User dans la BDD
+  static Future<Object> getUserLogin(email, password) async {
     try {
-      var result = await userCollection.find(where.eq('email', email).and(where.eq('password', password))).toList();
-      if(result.length > 0) {
+      //Recherche dans la BDD un User qui possede l'email et le mot de passe
+      //exact qui à été envoyé dans le formulaire
+      var result = await userCollection
+          .find(where.eq('email', email).and(where.eq('password', password)))
+          .toList();
+      //Si le resultat n'est pas vide retourne vrai
+      if (result.length > 0) {
         return true;
       } else {
         return false;

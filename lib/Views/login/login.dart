@@ -12,7 +12,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
@@ -38,15 +37,12 @@ class _LoginState extends State<Login> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
             Text(
               'Mon ecurie',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 45),
             ),
-          ]
-          ),
+          ]),
           Container(
             margin: const EdgeInsets.only(top: 25),
             child: TextFormField(
@@ -83,32 +79,35 @@ class _LoginState extends State<Login> {
             height: 80,
             width: 4000,
             padding: const EdgeInsets.all(20),
+            //Bouton Connexion
             child: ElevatedButton(
+              //Au clique ...
               onPressed: () async {
+                //... Si le formulaire est rempli ...
                 if (formKey.currentState!.validate()) {
-
-                  var result = await MongoDatabase.getUserByEmail(emailController.text, passwordController.text);
-                  if(result == true){
+                  //... on appel la fonction getUserLogin
+                  var result = await MongoDatabase.getUserLogin(
+                      emailController.text, passwordController.text);
+                  if (result == true) {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Connecté')),
                     );
-                    print("Ok");
-                  }else{
+                  } else {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Email ou mot de passe incorrect')),
+                      const SnackBar(
+                          content: Text('Email ou mot de passe incorrect')),
                     );
-                    print("No");
                   }
                 }
               },
               child: const Text('Connexion'),
             ),
           ),
+          //Button mot de passe oublié
           TextButton(
-            onPressed: () {
-              },
+            onPressed: () {},
             child: const Text('Mot de passe oublié'),
           )
         ],
