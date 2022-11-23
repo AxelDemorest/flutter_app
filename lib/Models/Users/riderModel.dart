@@ -6,6 +6,6 @@ class Rider extends User{
   String linkFFE;
   List<Horse> listRiderHorse;
 
-  Rider(super.id, super.name, super.email, super.lastName, super.phone, super.age, super.isAdmin, this.linkFFE, this.listRiderHorse);
+  Rider(super.id, super.name, super.email, super.lastName, super.phone, super.age, this.linkFFE, this.listRiderHorse);
 
 }

@@ -1,8 +1,8 @@
 import 'package:flutter_app/Models/Users/userModel.dart';
 
 class Fetar {
-  User user;
-  String description;
+  final User user;
+  final String description;
 
   Fetar(this.user, this.description);
 }
