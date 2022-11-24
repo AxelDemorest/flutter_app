@@ -44,6 +44,16 @@ class MongoDatabase {
     return null;
   }
 
+  static Future<Object?> insertCourse(Object course) async {
+    try {
+      var result = await db.collection(eventCollection).insertOne(course);
+      return result;
+    } catch (e) {
+      e.toString();
+    }
+    return null;
+  }
+
   static Future<List<Event>> getLastEvents() async {
     try {
       final events = await db.collection(eventCollection).find().toList();
