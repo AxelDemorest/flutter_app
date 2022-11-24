@@ -100,7 +100,7 @@ class _LoginState extends State<Login> {
                     });
                   });
 
-                  if (result != null) {
+                  if (logged != null) {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Connecté')),
