@@ -5,7 +5,8 @@ import 'package:flutter_app/Models/horseModel.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
 class ProfileRiderPage extends StatefulWidget {
-  const ProfileRiderPage({Key? key}) : super(key: key);
+  const ProfileRiderPage({Key? key, required this.title} ) : super(key: key);
+  final String title;
 
   @override
   State<ProfileRiderPage> createState() => _ProfileRiderPageState();
@@ -15,7 +16,6 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
 
   //Création des variable et des controller
   late Rider rider;
-  List<String> listHorse = ["Hello", "Sa va ?", "aurevoir"];
   final pseudoController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -74,16 +74,26 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
   }
 
   //Ouvre la page list des cheveaux de l'utilisateur
-  _goToListHorse(){
-      List<List<Horse>> data = [rider.listOwnerHorse, rider.listDPHorse];
-      Navigator.pushNamed(context, '/listHorse', arguments: data).then(
-              (_) => setState(() {}));
-  }
 
   @override
   Widget build(BuildContext context) {
     //rider = ModalRoute.of(context)!.settings.arguments as Rider;
-    rider = new Rider(mongo.ObjectId(), "Paul", "email@gmail.com","EEA3E2pa", "lastName", "0695040570", 20, "username", "linkFFE", true, false, [], []);
+    rider = new Rider(
+          mongo.ObjectId(),
+          "Paul",
+          "email@gmail.com",
+          "EEA3E2pa",
+          "lastName",
+          "0695040570",
+          20,
+          "username",
+          "linkFFE",
+          true,
+          false,
+          [new Horse(mongo.ObjectId(), "Caramele", 15, "Blanc", "Poney", "Male", "Complet", ""),
+           new Horse(mongo.ObjectId(), "Zoro", 17, "Noir et Blanc", "Cheval", "Male", "Dressage", "")],
+          [new Horse(mongo.ObjectId(), "Vanille", 12, "Bronze", "Cheval", "Femelle", "Complet", "")]);
+    List<List<Horse>> listHorse = [rider.listOwnerHorse, rider.listDPHorse];
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
@@ -104,7 +114,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
             Text("Age : ${rider.age}"),
             Text("Email : ${rider.email}"),
             Text("Lien FFE :  ${rider.linkFFE}"),
-            TextButton(onPressed: _goToListHorse, child: Text("Mes Cheveaux")),
+            TextButton(onPressed: (){ Navigator.of(context).pushNamed( 'listHorse', arguments: listHorse);}, child: Text("Mes Cheveaux")),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
