@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         "listHorse": (context) => const ListHorse(title: 'Liste des chevaux'),
         "profilehorse": (context) => const ProfileHorse(title: 'Profile du cheval'),
         "news": (context) => const NewsPage(title: 'Dernières actualités'),
+        //"AddCours" : (context) => const AddCoursPage(title: 'Ajouter un cours'),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
