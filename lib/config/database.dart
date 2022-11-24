@@ -1,13 +1,41 @@
-import 'dart:developer';
-
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:flutter_app/Models/Users/userModel.dart';
 import 'package:flutter_app/constants.dart';
 
 class MongoDatabase {
+  static var db, userCollection;
   static connect() async {
-    var db = await Db.create(mongoUrl);
+    db = await Db.create(mongoUrl);
     await db.open();
-    inspect(db);
-    var collection = db.collection(collectionName);
+    userCollection = db.collection(collectionName);
   }
+
+  //Verifie si l'email et le mot passe correspondent à un User dans la BDD
+  static Future<Object> getUserLogin(email, password) async {
+    try {
+      //Recherche dans la BDD un User qui possede l'email et le mot de passe
+      //exact qui à été envoyé dans le formulaire
+      var result = await userCollection
+          .find(where.eq('email', email).and(where.eq('password', password)))
+          .toList();
+      //Si le resultat n'est pas vide retourne vrai
+      if (result.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
+  static Future<Object?> insertUser(Object user) async {
+    try {
+      var result = await userCollection.insertOne(user);
+      return result;
+    } catch(e) {
+      e.toString();
+    }
+    return null;
+  }
+
 }

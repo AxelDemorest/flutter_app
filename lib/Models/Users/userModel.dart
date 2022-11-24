@@ -1,6 +1,6 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
-abstract class User {
+class User {
   final ObjectId id;
   String name;
   String lastName;
