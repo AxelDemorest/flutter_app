@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Views/home/NavBar.dart';
 import 'package:flutter_app/Views/home/home.dart';
 import 'package:flutter_app/Views/news/news.dart';
 import 'package:flutter_app/Views/login/login.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         "listHorse": (context) => const ListHorse(title: 'Liste des chevaux'),
         "profilehorse": (context) => const ProfileHorse(title: 'Profile du cheval'),
         "news": (context) => const NewsPage(title: 'Dernières actualités'),
+        "Navigator" : (context) => const Home()
         //"AddCours" : (context) => const AddCoursPage(title: 'Ajouter un cours'),
       },
       title: 'Flutter Demo',
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.orange,
       ),
-      home: const Login(title: 'Flutter Demo Home Page'),
+      home: const Login(title: 'Se connecter'),
     );
   }
 }

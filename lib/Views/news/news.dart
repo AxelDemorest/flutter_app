@@ -35,7 +35,9 @@ class _NewsPageState extends State<NewsPage> {
               CompetitionList(),
               ClassesList(),
               AftersList()
-            ])));
+            ])
+        )
+    );
   }
 }
 

@@ -106,7 +106,7 @@ class _LoginState extends State<Login> {
                       const SnackBar(content: Text('Connecté')),
                     );
                     // ignore: use_build_context_synchronously
-                    Navigator.pushReplacementNamed(context, 'news')
+                    Navigator.pushReplacementNamed(context, 'Navigator')
                         .then((_) => setState(() {}));
                   } else {
                     // ignore: use_build_context_synchronously
