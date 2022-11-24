@@ -21,7 +21,7 @@ class MongoDatabase {
     try {
       //Recherche dans la BDD un User qui possede l'email et le mot de passe
       //exact qui à été envoyé dans le formulaire
-      result = await userCollection.findOne(
+      result = await db.collection(userCollection).findOne(
           where.eq('email', email).and(where.eq('password', password)));
       //Si le resultat n'est pas vide retourne vrai
       if (result.length > 0) {
@@ -61,7 +61,7 @@ class MongoDatabase {
     try {
       final users = await db.collection(userCollection).find().toList();
       List<User> lastUsers = [];
-      users.forEach((item) => lastUsers.add(User(item['_id'], item['name'], item['lastName'], item['email'], item['phone'], item['age'], item['createdAt'])));
+      users.forEach((item) => lastUsers.add(User(item['_id'], item['username'], item['name'], item['lastName'], item['email'], item['password'], item['phone'], item['age'], item['createdAt'])));
       lastUsers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
       return lastUsers;
     } catch (e) {
@@ -114,20 +114,19 @@ class MongoDatabase {
       return Future.value([]);
     }
   }
-}
 
   static Future<Object?> changePassword(pseudo, email, newPassword) async {
     try {
       //Recherche dans la BDD un User qui possede le pseudo et l'email
       //exact qui à été envoyé dans le formulaire
-      var result = await userCollection
+      var result = await db.collection(userCollection)
           .findOne(where.eq('username', pseudo).and(where.eq('email', email)));
       //Si le resultat n'est pas vide retourne vrai
       if (result.length > 0) {
         //Si le nouveau mot de passe est différent de l'ancien ...
         if (newPassword != result["password"]) {
           //... Modifie le mot de passe de l'adresse mail donné
-          var change = await userCollection.update(
+          var change = await db.collection(userCollection).update(
               where.eq('email', email), modify.set('password', newPassword));
           return change;
         } else {

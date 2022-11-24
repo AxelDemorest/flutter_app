@@ -246,10 +246,6 @@ class _RegisterState extends State<Register> {
                                                 ),
                                               ));
                                             } else {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                const SnackBar(
-                                                    content: Text('Inscription terminé')),
-                                              );
                                               User user = User(
                                                   M.ObjectId(),
                                                   usernameController.text,
@@ -260,7 +256,6 @@ class _RegisterState extends State<Register> {
                                                   phoneController.text,
                                                   int.parse(ageController.text),
                                                   DateTime.now());
-                                              ,);
 
                                               var userJson = {
                                                 '_id': user.id,
@@ -271,13 +266,12 @@ class _RegisterState extends State<Register> {
                                                 'password': user.password,
                                                 'phone': user.phone,
                                                 'age': user.age,
-                                                'username': user.username,
-                                                'createdAt': user.createdAt
+                                                'createdAt': user.createdAt,
                                               };
+                                              await MongoDatabase.insertUser(
+                                                  userJson);
 
-                                              await MongoDatabase.insertUser(userJson);
-                                              // ignore: use_build_context_synchronously
-                                              Navigator.pushReplacementNamed(context, 'loginPage');
+                                              Navigator.of(context).pop();
                                             }
                                           }
                                         },

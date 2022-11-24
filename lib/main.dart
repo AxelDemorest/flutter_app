@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Views/home/home.dart';
 import 'package:flutter_app/Views/news/news.dart';
 import 'package:flutter_app/Views/login/login.dart';
 import 'package:flutter_app/Views/profile/ProfileRider.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         "registerPage": (context) => const Register(title: 'Inscription'),
         "profilepage": (context) => const ProfileRiderPage(title: 'Profile'),
         "listHorse": (context) => const ListHorse(title: 'Liste des chevaux'),
-        "profilehorse": (context) => const ProfileHorse(title: 'Profile du cheval')
+        "profilehorse": (context) => const ProfileHorse(title: 'Profile du cheval'),
+        "news": (context) => const NewsPage(title: 'Dernières actualités'),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
