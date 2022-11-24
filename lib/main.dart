@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         "home": (context) => const MyHomePage(title: 'HomePage'),
+        "loginPage": (context) => const Login(title: 'Connexion'),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

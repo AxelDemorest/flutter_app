@@ -111,6 +111,10 @@ class _LoginState extends State<Login> {
           TextButton(
             onPressed: () {},
             child: const Text('Mot de passe oublié'),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text('S\'inscrire'),
           )
         ],
       ),
