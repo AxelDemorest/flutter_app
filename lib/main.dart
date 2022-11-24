@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Views/addCourse/addCourse.dart';
 import 'package:flutter_app/Views/home/home.dart';
 import 'package:flutter_app/Views/news/news.dart';
 import 'package:flutter_app/Views/login/login.dart';
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.orange,
       ),
-      home: const AddCourse(title: 'Flutter Demo Home Page'),
+      home: const Login(title: 'Flutter Demo Home Page'),
     );
   }
 }
