@@ -218,8 +218,8 @@ class _RegisterState extends State<Register> {
                                                   mailController.text,
                                                   lastNameController.text,
                                                   phoneController.text,
-                                                  int.parse(
-                                                      ageController.text));
+                                                  int.parse(ageController.text),
+                                                  DateTime.now());
                                               var userJson = {
                                                 '_id': user.id,
                                                 'name': user.name,
@@ -228,7 +228,8 @@ class _RegisterState extends State<Register> {
                                                 'phone': user.phone,
                                                 'age': user.age
                                               };
-                                              await MongoDatabase.insertUser(userJson);
+                                              await MongoDatabase.insertUser(
+                                                  userJson);
                                             }
                                           }
                                         },

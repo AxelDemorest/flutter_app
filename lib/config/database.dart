@@ -1,18 +1,23 @@
-import 'package:mongo_dart/mongo_dart.dart';
+import 'package:flutter_app/Models/Event/afterModel.dart';
+import 'package:flutter_app/Models/Event/classesModel.dart';
+import 'package:flutter_app/Models/Event/competitionModel.dart';
+import 'package:flutter_app/Models/Users/participantModel.dart';
+import 'package:flutter_app/Models/Users/riderModel.dart';
 import 'package:flutter_app/Models/Users/userModel.dart';
+import 'package:mongo_dart/mongo_dart.dart';
+import 'package:flutter_app/Models/Event/eventModel.dart';
 import 'package:flutter_app/constants.dart';
 
 class MongoDatabase {
-  static var db, userCollection;
+  static var db;
   static connect() async {
     db = await Db.create(mongoUrl);
     await db.open();
-    userCollection = db.collection(collectionName);
   }
 
   static Future<Object?> insertUser(Object user) async {
     try {
-      var result = await userCollection.insertOne(user);
+      var result = await db.collection(userCollection).insertOne(user);
       return result;
     } catch(e) {
       e.toString();
@@ -20,4 +25,75 @@ class MongoDatabase {
     return null;
   }
 
+  static Future<List<Event>> getLastEvents() async {
+    try {
+      final events = await db.collection(eventCollection).find().toList();
+      List<Event> lastEvents = [];
+      events.forEach((item) => lastEvents.add(Event(item['_id'], item['name'], item['date'], item['description'], item['address'], item['eventType'])));
+      lastEvents.sort((a, b) => b.date.compareTo(a.date));
+      return lastEvents;
+    } catch (e) {
+      print(e);
+      return Future.value([]);
+    }
+  }
+
+  static Future<List<User>> getLastUsers() async {
+    try {
+      final users = await db.collection(userCollection).find().toList();
+      List<User> lastUsers = [];
+      users.forEach((item) => lastUsers.add(User(item['_id'], item['name'], item['lastName'], item['email'], item['phone'], item['age'], item['createdAt'])));
+      lastUsers.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      return lastUsers;
+    } catch (e) {
+      print(e);
+      return Future.value([]);
+    }
+  }
+
+  static Future<List<Competition>> getLastCompetitions() async {
+    try {
+      final competitions = await db.collection(eventCollection).find(where.eq('eventType', 'competition')).toList();
+      List<Competition> lastCompetitions = [];
+      competitions.forEach((item) {
+        lastCompetitions.add(Competition(item['_id'], item['name'], item['date'], item['description'], item['address'], item['eventType'], item['imagePath'], item['riders']));
+      });
+      lastCompetitions.sort((a, b) => b.date.compareTo(a.date));
+      return lastCompetitions;
+    } catch (e) {
+      print(e);
+      return Future.value([]);
+    }
+  }
+
+  static Future<List<Classes>> getLastClasses() async {
+    try {
+      final classes = await db.collection(eventCollection).find(where.eq('eventType', 'classes')).toList();
+      List<Classes> lastClasses = [];
+      classes.forEach((item) {
+        lastClasses.add(Classes(item['_id'], item['name'], item['date'], item['description'], item['address'], item['eventType'], item['rider'], item['level']));
+      });
+      lastClasses.sort((a, b) => b.date.compareTo(a.date));
+      return lastClasses;
+    } catch (e) {
+      print(e);
+      return Future.value([]);
+    }
+  }
+
+  static Future<List<After>> getLastAfters() async {
+    try {
+      final afters = await db.collection(eventCollection).find(where.eq('eventType', 'after')).toList();
+      List<After> lastAfters = [];
+      afters.forEach((item) {
+        lastAfters.add(After(item['_id'], item['name'], item['date'], item['description'], item['address'], item['eventType'], item['type'], item['imagePath'], item['fetars']));
+      });
+      lastAfters.sort((a, b) => b.date.compareTo(a.date));
+      return lastAfters;
+    } catch (e) {
+      print(e);
+      return Future.value([]);
+    }
+  }
 }
+

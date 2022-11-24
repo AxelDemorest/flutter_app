@@ -1,12 +1,14 @@
+
 import 'package:mongo_dart/mongo_dart.dart';
 
 class User {
   final ObjectId id;
-  String name;
-  String lastName;
-  String email;
-  String phone;
-  int age;
+  final String name;
+  final String lastName;
+  final String email;
+  final String phone;
+  final int age;
+  final DateTime createdAt;
 
-  User(this.id, this.name, this.email, this.lastName, this.phone, this.age);
+  User(this.id, this.name, this.email, this.lastName, this.phone, this.age, this.createdAt);
 }
