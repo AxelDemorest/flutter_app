@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
 import '../../Models/horseModel.dart';
@@ -15,18 +18,36 @@ class ProfileHorse extends StatefulWidget {
 
 class _ProfileHorseState extends State<ProfileHorse> {
 
+  File? _image;
   static const List<String> listSpe = <String>['Dressage', 'Saut d\'obstacle', 'Endurance', 'Complet'];
   String dropdownValue = listSpe.first;
+  var name = TextEditingController();
+  var age = TextEditingController();
+  var robe = TextEditingController();
+  var race = TextEditingController();
+  var sex = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    var name = TextEditingController();
-    var age = TextEditingController();
-    var robe = TextEditingController();
-    var race = TextEditingController();
-    var sex = TextEditingController();
+
+    Future getImage() async {
+      try{
+        final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+        if (image == null) return;
+
+        final imgTemp = File(image.path);
+
+        setState(() {
+          _image = imgTemp;
+        });
+      }
+      catch (e){
+        print("Error: $e");
+      }
+    }
 
     Horse horse = Horse(mongo.ObjectId(), 'Le nom du cheval 111', 12, 'robe',
-        'race', 'sex', '1', 'assets/imgHorse/cheval1.jpeg');
+          'race', 'sex', '1', 'assets/imgHorse/cheval1.jpeg');
     setState(
       () {
         name.text = horse.name;
@@ -74,7 +95,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                 decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       )
                                   ),
                                   hintText: 'La taille',
@@ -91,7 +112,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                 decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       )
                                   ),
                                   hintText: 'Son age',
@@ -103,7 +124,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                 decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       )
                                   ),
                                   hintText: 'Sa robe',
@@ -115,7 +136,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                 decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       )
                                   ),
                                   hintText: 'La race',
@@ -127,7 +148,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                 decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                          color: Colors.blue
+                                          color: Colors.orange
                                       )
                                   ),
                                   hintText: 'Le sexe',
@@ -138,7 +159,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
                               icon: const Icon(Icons.arrow_downward),
                               elevation: 16,
                               underline: Container(
-                                color: Colors.blue,
+                                color: Colors.orange,
                               ),
                               onChanged: (String? value) {
                                 setState(() {
@@ -151,6 +172,19 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                   child: Text(value),
                                 );
                               }).toList(),
+                            ),
+                            ElevatedButton(
+                                onPressed: (){
+                                  getImage();
+                                },
+                                child:
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text('Image de mon cheval'),
+                                        Icon(Icons.image)
+                                      ],
+                                    )
                             )
                           ]),
                         ),
