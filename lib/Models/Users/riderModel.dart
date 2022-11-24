@@ -12,8 +12,10 @@ class Rider extends User {
 
   Rider(
       ObjectId id,
+      String username,
       String name,
       String lastName,
+      String password,
       String email,
       String phone,
       int age,
@@ -23,5 +25,5 @@ class Rider extends User {
       this.isDp,
       this.listOwnerHorse,
       this.listDPHorse)
-      : super(id, name, lastName, email, phone, age, createdAt);
+      : super(id, username, name, lastName, password, email, phone, age, createdAt);
 }

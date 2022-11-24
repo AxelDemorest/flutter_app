@@ -19,6 +19,8 @@ class _RegisterState extends State<Register> {
   TextEditingController ageController = TextEditingController();
   TextEditingController mailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   bool isOwner = false;
   bool isHalfBoarder = false;
@@ -176,6 +178,38 @@ class _RegisterState extends State<Register> {
                                   ),
                                   Container(
                                       margin: const EdgeInsets.only(top: 20),
+                                      child: TextFormField(
+                                        controller: usernameController,
+                                        decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Entrez votre pseudo',
+                                        ),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Veuillez écrire un pseudo correct';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                      )),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 20),
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: 'Entrez votre mot de passe',
+                                        ),
+                                        validator: (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Veuillez écrire un mot de passe correct';
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                      )),
+                                  Container(
+                                      margin: const EdgeInsets.only(top: 20),
                                       width: 250,
                                       height: 50,
                                       child: TextButton(
@@ -212,24 +246,38 @@ class _RegisterState extends State<Register> {
                                                 ),
                                               ));
                                             } else {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                    content: Text('Inscription terminé')),
+                                              );
                                               User user = User(
                                                   M.ObjectId(),
+                                                  usernameController.text,
                                                   firstNameController.text,
-                                                  mailController.text,
                                                   lastNameController.text,
+                                                  mailController.text,
+                                                  passwordController.text,
                                                   phoneController.text,
                                                   int.parse(ageController.text),
                                                   DateTime.now());
+                                              ,);
+
                                               var userJson = {
                                                 '_id': user.id,
+                                                'username': user.username,
                                                 'name': user.name,
                                                 'lastName': user.lastName,
                                                 'email': user.email,
+                                                'password': user.password,
                                                 'phone': user.phone,
-                                                'age': user.age
+                                                'age': user.age,
+                                                'username': user.username,
+                                                'createdAt': user.createdAt
                                               };
-                                              await MongoDatabase.insertUser(
-                                                  userJson);
+
+                                              await MongoDatabase.insertUser(userJson);
+                                              // ignore: use_build_context_synchronously
+                                              Navigator.pushReplacementNamed(context, 'loginPage');
                                             }
                                           }
                                         },
