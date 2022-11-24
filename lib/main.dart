@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Views/login/login.dart';
 import 'package:flutter_app/Views/register/register.dart';
 import 'package:flutter_app/config/database.dart';
 import 'Views/home/home.dart';
@@ -16,6 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        "home": (context) => const MyHomePage(title: 'HomePage'),
+        "loginPage": (context) => const Login(title: 'Connexion'),
+        "registerPage": (context) => const Register(title: 'Inscription'),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -29,7 +35,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.orange,
       ),
-      home: const Register(title: 'Flutter Demo Home Page'),
+      home: const Login(title: 'Flutter Demo Home Page'),
     );
   }
 }

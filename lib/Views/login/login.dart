@@ -93,6 +93,8 @@ class _LoginState extends State<Login> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Connecté')),
                     );
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushReplacementNamed(context, 'home');
                   } else {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -109,6 +111,12 @@ class _LoginState extends State<Login> {
           TextButton(
             onPressed: () {},
             child: const Text('Mot de passe oublié'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, 'registerPage');
+            },
+            child: const Text('S\'inscrire'),
           )
         ],
       ),

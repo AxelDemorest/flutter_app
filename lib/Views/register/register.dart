@@ -246,6 +246,10 @@ class _RegisterState extends State<Register> {
                                                 ),
                                               ));
                                             } else {
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                    content: Text('Inscription terminé')),
+                                              );
                                               User user = User(
                                                   M.ObjectId(),
                                                   firstNameController.text,
@@ -266,6 +270,8 @@ class _RegisterState extends State<Register> {
                                                 'username': user.username,
                                               };
                                               await MongoDatabase.insertUser(userJson);
+                                              // ignore: use_build_context_synchronously
+                                              Navigator.pushReplacementNamed(context, 'loginPage');
                                             }
                                           }
                                         },
