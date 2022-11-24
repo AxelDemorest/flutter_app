@@ -7,6 +7,7 @@ abstract class User {
   String email;
   String phone;
   int age;
+  String username;
 
-  User(this.id, this.name, this.email, this.lastName, this.phone, this.age);
+  User(this.id, this.name, this.email, this.lastName, this.phone, this.age, this.username);
 }

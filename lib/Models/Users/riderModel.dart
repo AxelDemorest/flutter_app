@@ -16,6 +16,7 @@ class Rider extends User{
       super.lastName,
       super.phone,
       super.age,
+      super.username,
       this.linkFFE,
       this.isOwner,
       this.isDp,
