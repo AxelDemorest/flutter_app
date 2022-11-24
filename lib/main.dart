@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Views/news/news.dart';
 import 'package:flutter_app/Views/login/login.dart';
 import 'package:flutter_app/Views/profile/ProfileRider.dart';
 import 'package:flutter_app/Views/profile/list/listHorse.dart';
 import 'package:flutter_app/Views/profile/profileHorse.dart';
 import 'package:flutter_app/Views/register/register.dart';
 import 'package:flutter_app/config/database.dart';
-import 'Views/home/home.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

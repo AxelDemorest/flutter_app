@@ -1,11 +1,31 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
-abstract class Event{
+class Event{
   final ObjectId id;
   final String name;
-  final String date;
+  final DateTime date;
   final String description;
   final String address;
+  final String eventType;
 
-  Event(this.id, this.name, this.date, this.description, this.address);
+  const Event(this.id, this.name, this.date, this.description, this.address, this.eventType);
+
+  Map<String, dynamic> toMap() {
+    return {
+      '_id': id,
+      'name': name,
+      'date': date,
+      'description': description,
+      'address': address,
+      'eventType': eventType,
+    };
+  }
+
+  Event.fromMap(Map<String, dynamic> map)
+      : id = map['_id'],
+        name = map['name'],
+        date = map['date'],
+        description = map['description'],
+        address = map['address'],
+        eventType = map['eventType'];
 }

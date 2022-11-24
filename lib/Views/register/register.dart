@@ -252,15 +252,19 @@ class _RegisterState extends State<Register> {
                                               );
                                               User user = User(
                                                   M.ObjectId(),
+                                                  usernameController.text,
                                                   firstNameController.text,
+                                                  lastNameController.text,
                                                   mailController.text,
                                                   passwordController.text,
-                                                  lastNameController.text,
                                                   phoneController.text,
                                                   int.parse(ageController.text),
-                                              usernameController.text,);
+                                                  DateTime.now());
+                                              ,);
+
                                               var userJson = {
                                                 '_id': user.id,
+                                                'username': user.username,
                                                 'name': user.name,
                                                 'lastName': user.lastName,
                                                 'email': user.email,
@@ -268,7 +272,9 @@ class _RegisterState extends State<Register> {
                                                 'phone': user.phone,
                                                 'age': user.age,
                                                 'username': user.username,
+                                                'createdAt': user.createdAt
                                               };
+
                                               await MongoDatabase.insertUser(userJson);
                                               // ignore: use_build_context_synchronously
                                               Navigator.pushReplacementNamed(context, 'loginPage');

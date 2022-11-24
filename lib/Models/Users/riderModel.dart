@@ -1,8 +1,9 @@
 import 'package:flutter_app/Models/Users/userModel.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 
 import '../horseModel.dart';
 
-class Rider extends User{
+class Rider extends User {
   String linkFFE;
   bool isDp;
   bool isOwner;
@@ -10,19 +11,19 @@ class Rider extends User{
   List<Horse> listDPHorse;
 
   Rider(
-      super.id,
-      super.name,
-      super.email,
-      super.password,
-      super.lastName,
-      super.phone,
-      super.age,
-      super.username,
+      ObjectId id,
+      String username,
+      String name,
+      String lastName,
+      String password,
+      String email,
+      String phone,
+      int age,
+      DateTime createdAt,
       this.linkFFE,
       this.isOwner,
       this.isDp,
       this.listOwnerHorse,
-      this.listDPHorse
-      );
-
+      this.listDPHorse)
+      : super(id, username, name, lastName, password, email, phone, age, createdAt);
 }
