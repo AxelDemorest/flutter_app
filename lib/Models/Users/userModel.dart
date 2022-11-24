@@ -5,9 +5,10 @@ abstract class User {
   String name;
   String lastName;
   String email;
+  String password;
   String phone;
   int age;
   String username;
 
-  User(this.id, this.name, this.email, this.lastName, this.phone, this.age, this.username);
+  User(this.id, this.name, this.email, this.password ,this.lastName, this.phone, this.age, this.username);
 }

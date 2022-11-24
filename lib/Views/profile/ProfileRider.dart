@@ -79,7 +79,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
   @override
   Widget build(BuildContext context) {
     //rider = ModalRoute.of(context)!.settings.arguments as Rider;
-    rider = new Rider(mongo.ObjectId(), "Paul", "email@gmail.com", "lastName", "0695040570", 20, "username", "linkFFE", true, false, [], []);
+    rider = new Rider(mongo.ObjectId(), "Paul", "email@gmail.com","EEA3E2pa", "lastName", "0695040570", 20, "username", "linkFFE", true, false, [], []);
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),

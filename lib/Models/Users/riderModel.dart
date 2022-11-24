@@ -13,6 +13,7 @@ class Rider extends User{
       super.id,
       super.name,
       super.email,
+      super.password,
       super.lastName,
       super.phone,
       super.age,
