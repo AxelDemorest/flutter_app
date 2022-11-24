@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Models/Users/riderModel.dart';
 import 'package:flutter_app/Models/horseModel.dart';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
 class ProfileRiderPage extends StatefulWidget {
-  const ProfileRiderPage({Key? key, required this.title}) : super(key: key);
+  const ProfileRiderPage({Key? key, required this.title} ) : super(key: key);
   final String title;
 
   @override
@@ -12,6 +13,7 @@ class ProfileRiderPage extends StatefulWidget {
 }
 
 class _ProfileRiderPageState extends State<ProfileRiderPage> {
+
   //Création des variable et des controller
   late Rider rider;
   final pseudoController = TextEditingController();
@@ -26,7 +28,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
-              title: const Text("Modification du profil"),
+              title: Text("Modification du profil"),
               actions: <Widget>[
                 TextField(
                   controller: pseudoController,
@@ -89,13 +91,13 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
         "linkFFE",
         true,
         false, [
-      Horse(mongo.ObjectId(), "Caramele", 15, "Blanc", "Poney", "Male",
-          "Complet", ""),
-      Horse(mongo.ObjectId(), "Zoro", 17, "Noir et Blanc", "Cheval", "Male",
-          "Dressage", "")
+      Horse(mongo.ObjectId(), "Caramele", 15, "Blanc", "Poney", "0",
+          "3", ""),
+      Horse(mongo.ObjectId(), "Zoro", 17, "Noir et Blanc", "Cheval", "0",
+          "0", "")
     ], [
-      Horse(mongo.ObjectId(), "Vanille", 12, "Bronze", "Cheval", "Femelle",
-          "Complet", "")
+      Horse(mongo.ObjectId(), "Vanille", 12, "Bronze", "Cheval", "1",
+          "3", "")
     ]);
     List<List<Horse>> listHorse = [rider.listOwnerHorse, rider.listDPHorse];
     return Scaffold(
