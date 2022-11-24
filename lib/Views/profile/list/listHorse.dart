@@ -11,6 +11,7 @@ class ListHorse extends StatefulWidget {
   State<ListHorse> createState() => _ListHorseState();
 }
 
+//Carte afficher pour les cheveaux dont est propriétaire
 class OwnerHorseCard extends StatelessWidget{
   Horse horse;
   OwnerHorseCard(this.horse,{super.key});
@@ -37,6 +38,7 @@ class OwnerHorseCard extends StatelessWidget{
   }
 }
 
+//Carte afficher pour les cheveaux dont est Demi-pensionnaire
 class DPHorseCard extends StatelessWidget{
   Horse horse;
   DPHorseCard(this.horse,{super.key});
@@ -48,7 +50,7 @@ class DPHorseCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.orangeAccent,
+      color: Colors.orange,
       child: Padding(padding: EdgeInsets.only(left: 30.00, right: 30.00),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -65,7 +67,7 @@ class DPHorseCard extends StatelessWidget{
 
 class _ListHorseState extends State<ListHorse> {
 
-  List<List<Horse>> listHorse = [];
+  late List<List<Horse>> listHorse = [];
 
   @override
   Widget build(BuildContext context) {

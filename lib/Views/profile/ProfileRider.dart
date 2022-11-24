@@ -13,6 +13,7 @@ class ProfileRiderPage extends StatefulWidget {
 
 class _ProfileRiderPageState extends State<ProfileRiderPage> {
 
+  //Création des variable et des controller
   late Rider rider;
   List<String> listHorse = ["Hello", "Sa va ?", "aurevoir"];
   final pseudoController = TextEditingController();
@@ -20,6 +21,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
   final confirmPasswordController = TextEditingController();
   final linkController = TextEditingController();
 
+  //Ouvre la dialog avec le formulair de modification de compte ( pseudo, mot de passe, et lien FFE)
   void _openModifyDialog() {
     showDialog(
         context: context,
@@ -60,6 +62,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
         });
   }
 
+  // effectue la modification en base de donnée
   void doModify() {
     setState(() {
       if (passwordController.value.text ==
@@ -70,6 +73,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
     Navigator.of(context).pop();
   }
 
+  //Ouvre la page list des cheveaux de l'utilisateur
   _goToListHorse(){
       List<List<Horse>> data = [rider.listOwnerHorse, rider.listDPHorse];
       Navigator.pushNamed(context, '/listHorse', arguments: data).then(
