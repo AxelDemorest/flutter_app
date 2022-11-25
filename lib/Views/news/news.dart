@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Models/Event/eventModel.dart';
 import 'package:flutter_app/config/database.dart';
 
 class NewsPage extends StatefulWidget {

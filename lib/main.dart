@@ -8,7 +8,6 @@ import 'package:flutter_app/Views/profile/list/listHorse.dart';
 import 'package:flutter_app/Views/profile/profileHorse.dart';
 import 'package:flutter_app/Views/register/register.dart';
 import 'package:flutter_app/config/database.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
         "home": (context) => const MyHomePage(title: 'HomePage'),
         "loginPage": (context) => const Login(title: 'Connexion'),
         "registerPage": (context) => const Register(title: 'Inscription'),
-        "profilepage": (context) => const ProfileRiderPage(title: 'Profile'),
+        "profilepage": (context) => ProfileRiderPage(title: 'Profile', userParam: null),
         "listHorse": (context) => const ListHorse(title: 'Liste des chevaux'),
         "profilehorse": (context) => const ProfileHorse(title: 'Profile du cheval'),
         "news": (context) => const NewsPage(title: 'Dernières actualités'),
