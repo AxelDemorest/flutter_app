@@ -11,6 +11,7 @@ import 'package:flutter_app/config/database.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'Views/addCourse/addCourse.dart';
+import 'Views/profile/addHorse/addHorse.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

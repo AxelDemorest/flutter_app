@@ -249,8 +249,7 @@ class _RegisterState extends State<Register> {
                                                 ),
                                               ));
                                             } else {
-                                              Horse h =
-                                              Horse(M.ObjectId(), "Caramele", 15, "Blanc", "Poney", "0", "3", "");
+                                              Horse h = Horse(id: M.ObjectId(), name: 'name', age: 1, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath');
                                               List<Horse> listOwnerHorse = [h];
                                               Rider rider = Rider(
                                                   id: M.ObjectId(),

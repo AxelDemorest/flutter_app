@@ -4,6 +4,7 @@ import 'package:flutter_app/Models/Event/competitionModel.dart';
 import 'package:flutter_app/Models/Users/participantModel.dart';
 import 'package:flutter_app/Models/Users/riderModel.dart';
 import 'package:flutter_app/Models/Users/userModel.dart';
+import 'package:flutter_app/Models/horseModel.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:flutter_app/Models/Event/eventModel.dart';
 import 'package:flutter_app/constants.dart';
@@ -53,6 +54,29 @@ class MongoDatabase {
       e.toString();
     }
     return null;
+  }
+
+  static Future<Object?> insertHorse(Object horse) async {
+    try {
+      var result = await db.collection(horseCollection).insertOne(horse);
+      print('Mon r : $result');
+      return result;
+    } catch (e) {
+      print('Mon e: $e');
+      e.toString();
+    }
+  }
+
+  static Future<List<Horse>> getLastHorse() async {
+    try {
+      final horses = await db.collection(horseCollection).find().toList();
+      List<Horse> lastHorses = [];
+      horses.forEach((item) => lastHorses.add(Horse(id: item['_id'], name: item['_id'], age: item['age'], robe: item['robe'], race: item['race'], sex: item['sex'], speciality: item['speciality'], imagePath: item['imagePath'])));
+      return lastHorses;
+    } catch (e) {
+      print(e);
+      return Future.value([]);
+    }
   }
 
   static Future<List<Event>> getLastEvents() async {

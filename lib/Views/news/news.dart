@@ -26,6 +26,7 @@ class _NewsPageState extends State<NewsPage> {
                 Tab(icon: Icon(Icons.event)),
                 Tab(icon: Icon(Icons.account_circle)),
                 Tab(icon: Icon(Icons.emoji_events)),
+                Tab(icon: Icon(Icons.pets)),
                 Tab(icon: Icon(Icons.receipt_rounded)),
                 Tab(icon: Icon(Icons.liquor)),
               ]),
@@ -35,6 +36,7 @@ class _NewsPageState extends State<NewsPage> {
               EventList(),
               UsersList(),
               CompetitionList(),
+              HorseList(),
               ClassesList(),
               AftersList()
             ])
@@ -170,6 +172,74 @@ class UsersList extends StatelessWidget {
                                         left: 73, top: 20),
                                     child: Text(
                                         "adresse : ${snapshot.data![index].name}"),
+                                  ),
+                                  const Spacer(),
+                                ],
+                              )),
+                        ));
+                  });
+            }
+          }
+        });
+  }
+}
+
+class HorseList extends StatelessWidget {
+  const HorseList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: MongoDatabase.getLastHorse(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              color: Colors.white,
+            );
+          } else {
+            if (snapshot.hasError) {
+              return Container(
+                color: Colors.white,
+                child: Center(
+                  child: Text(
+                    'Something went wrong, try again.',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                        elevation: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SizedBox(
+                              width: 300,
+                              height: 200,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  const Spacer(),
+                                  ListTile(
+                                    title: Text(
+                                        "${snapshot.data![index].name} (${snapshot.data![index].age} ans)"),
+                                    leading: const Icon(
+                                      Icons.pets,
+                                      size: 40,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 73),
+                                    child: Text(
+                                        "Couleur : ${snapshot.data![index].robe}"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 73, top: 20),
+                                    child: Text(
+                                        "Race : ${snapshot.data![index].race}"),
                                   ),
                                   const Spacer(),
                                 ],

@@ -37,7 +37,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
   @override
   Widget build(BuildContext context) {
     //rider = ModalRoute.of(context)!.settings.arguments as Rider;
-    rider = Rider(
+    Rider myRider = Rider(
         mongo.ObjectId(),
         "username",
         "Paul",
@@ -50,18 +50,15 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
         "linkFFE",
         true,
         false, [
-      Horse(mongo.ObjectId(), "Caramele", 15, "Blanc", "Poney", "0",
-          "3", ""),
-      Horse(mongo.ObjectId(), "Zoro", 17, "Noir et Blanc", "Cheval", "0",
-          "0", "")
-    ], [
-      Horse(mongo.ObjectId(), "Vanille", 12, "Bronze", "Cheval", "1",
-          "3", "")
+      Horse(id: mongo.ObjectId(), name: 'name', age: 2, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath'),
+      Horse(id: mongo.ObjectId(), name: 'name', age: 2, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath')],
+        [
+      Horse(id: mongo.ObjectId(), name: 'name', age: 2, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath')
+
     ]);
-    List<List<Horse>> listHorse = [rider.listOwnerHorse, rider.listDPHorse];
     return Scaffold(
         appBar: AppBar(
-          title: Text("Bienvenue ${rider.username} sur votre profil"),
+          title: Text("Bienvenue ${myRider.username} sur votre profil"),
         ),
         body: Container(
             padding: const EdgeInsets.only(left: 30.00, right: 30.00),
@@ -71,20 +68,15 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("Nom : ${rider.name}"),
-                    Text("Prénom : ${rider.lastName}")
+                    Text("Nom : ${myRider.name}"),
+                    Text("Prénom : ${myRider.lastName}")
                   ],
                 ),
-                Text("Pseudo : ${rider.username}"),
-                Text("Age : ${rider.age}"),
-                Text("Email : ${rider.email}"),
-                Text("Lien FFE :  ${rider.linkFFE}"),
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context)
-                          .pushNamed('listHorse', arguments: listHorse);
-                    },
-                    child: const Text("Mes Cheveaux")),
+                Text("Pseudo : ${myRider.username}"),
+                Text("Age : ${myRider.age}"),
+                Text("Email : ${myRider.email}"),
+                Text("Lien FFE :  ${myRider.linkFFE}"),
+                TextButton(onPressed: (){ Navigator.of(context).pushNamed( 'listHorse', arguments: [myRider.listOwnerHorse, myRider.listDPHorse]);}, child: Text("Mes Chevaux")),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

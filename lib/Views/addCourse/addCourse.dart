@@ -319,35 +319,11 @@ class _AddCourseState extends State<AddCourse> {
                                     true,
                                     false,
                                     [
-                                      Horse(
-                                          M.ObjectId(),
-                                          "Caramele",
-                                          15,
-                                          "Blanc",
-                                          "Poney",
-                                          "Male",
-                                          "Complet",
-                                          ""),
-                                      Horse(
-                                          M.ObjectId(),
-                                          "Zoro",
-                                          17,
-                                          "Noir et Blanc",
-                                          "Cheval",
-                                          "Male",
-                                          "Dressage",
-                                          "")
+                                      Horse(id: M.ObjectId(), name: 'name', age: 2, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath'),
+                                      Horse(id: M.ObjectId(), name: 'name', age: 2, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath')
                                     ],
                                     [
-                                      Horse(
-                                          M.ObjectId(),
-                                          "Vanille",
-                                          12,
-                                          "Bronze",
-                                          "Cheval",
-                                          "Femelle",
-                                          "Complet",
-                                          "")
+                                      Horse(id: M.ObjectId(), name: 'name', age: 2, robe: 'robe', race: 'race', sex: 'sex', speciality: 'speciality', imagePath: 'imagePath')
                                     ]
                                 );
 

@@ -47,8 +47,7 @@ class _ListHorseState extends State<ListHorse> {
   @override
   Widget build(BuildContext context) {
     List<Card> ownerList = [];
-    List<dynamic> horses = ModalRoute.of(context)!.settings.arguments as List<dynamic>;
-    print ('horses : $horses');
+    listHorse =  ModalRoute.of(context)!.settings.arguments as List<List<Horse>>;
     void _openHorse(){
 
     }

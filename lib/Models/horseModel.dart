@@ -1,20 +1,55 @@
+// To parse this JSON data, do
+//
+//     final horse = horseFromJson(jsonString);
+
+import 'dart:convert';
+
 import 'package:mongo_dart/mongo_dart.dart';
 
+Horse horseFromJson(String str) => Horse.fromJson(json.decode(str));
+
+String horseToJson(Horse data) => json.encode(data.toJson());
+
 class Horse {
-  final ObjectId id;
-  final String name;
-  final int age;
-  final String robe;
-  final String race;
-  final String sex;
-  final String speciality;
-  final String image;
+  Horse({
+    required this.id,
+    required this.name,
+    required this.age,
+    required this.robe,
+    required this.race,
+    required this.sex,
+    required this.speciality,
+    required this.imagePath,
+  });
 
-  Horse(this.id, this.name, this.age, this.robe, this.race, this.sex, this.speciality, this.image );
+  ObjectId id;
+  String name;
+  int age;
+  String robe;
+  String race;
+  String sex;
+  String speciality;
+  String imagePath;
 
-  @override
-  String toString() {
-    return ('Id : $id, Name : $name, Age : $age, Robe : $robe, Race : $race, Sex : $sex, Speciality : $speciality, ImageFile : $image');
-  }
+  factory Horse.fromJson(Map<String, dynamic> json) => Horse(
+    id: json["_id"],
+    name: json["name"],
+    age: json["age"],
+    robe: json["robe"],
+    race: json["race"],
+    sex: json["sex"],
+    speciality: json["speciality"],
+    imagePath: json["imagePath"],
+  );
 
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "name": name,
+    "age": age,
+    "robe": robe,
+    "race": race,
+    "sex": sex,
+    "speciality": speciality,
+    "imagePath": imagePath,
+  };
 }
