@@ -49,10 +49,6 @@ class _ListHorseState extends State<ListHorse> {
     List<Card> ownerList = [];
     listHorse =  ModalRoute.of(context)!.settings.arguments as List<List<Horse>>;
 
-    void _openHorse(){
-
-    }
-
     setState(() {
       for (Horse horse in listHorse[0]){
         ownerList.add(

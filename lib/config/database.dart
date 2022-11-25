@@ -4,6 +4,7 @@ import 'package:flutter_app/Models/Event/competitionModel.dart';
 import 'package:flutter_app/Models/Users/participantModel.dart';
 import 'package:flutter_app/Models/Users/riderModel.dart';
 import 'package:flutter_app/Models/Users/userModel.dart';
+import 'package:flutter_app/Models/horseModel.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:flutter_app/Models/Event/eventModel.dart';
 import 'package:flutter_app/constants.dart';
@@ -53,6 +54,19 @@ class MongoDatabase {
       print(e.toString());
     }
     return null;
+  }
+
+  static Future<List<Horse>> getHorses() async {
+    try {
+      final horseData = await db.collection(eventCollection).find().toList();
+      List<Horse> horses = [];
+      for (var item in horseData) {
+        horses.add(Horse(item['_id'], item['name'], item['age'], item['robe'], item['race'], item['sexe'], item['speciality'], item['image']));
+      }
+      return horses;
+    } catch (e) {
+      return Future.value([]);
+    }
   }
 
   static Future<List<Event>> getLastEvents() async {
