@@ -10,6 +10,9 @@ import 'package:flutter_app/Views/register/register.dart';
 import 'package:flutter_app/config/database.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import 'Views/addCourse/addCourse.dart';
+import 'Views/profile/addHorse/addHorse.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
@@ -31,8 +34,8 @@ class MyApp extends StatelessWidget {
         "listHorse": (context) => const ListHorse(title: 'Liste des chevaux'),
         "profilehorse": (context) => const ProfileHorse(title: 'Profile du cheval'),
         "news": (context) => const NewsPage(title: 'Dernières actualités'),
-        "Navigator" : (context) => const Home()
-        //"AddCours" : (context) => const AddCoursPage(title: 'Ajouter un cours'),
+        "Navigator" : (context) => const Home(),
+        "AddCours" : (context) => const AddCourse(title: 'Ajouter un cours'),
       },
       title: 'Flutter Demo',
       theme: ThemeData(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../Models/Users/userClass.dart';
 import '../../config/database.dart';
 
 class Login extends StatefulWidget {
@@ -101,15 +102,12 @@ class _LoginState extends State<Login> {
                   });
 
                   if (logged != null) {
-                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Connecté')),
                     );
-                    // ignore: use_build_context_synchronously
-                    Navigator.pushReplacementNamed(context, 'Navigator')
-                        .then((_) => setState(() {}));
+                    Navigator.pushReplacementNamed(context, 'Navigator', arguments: logged).then(
+                            (_) => setState(() {}));
                   } else {
-                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                           content: Text('Email ou mot de passe incorrect')),

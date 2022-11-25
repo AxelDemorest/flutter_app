@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Models/Event/eventModel.dart';
 import 'package:flutter_app/config/database.dart';
 
+import '../addCourse/addCourse.dart';
+
 class NewsPage extends StatefulWidget {
   const NewsPage({Key? key, required this.title}) : super(key: key);
 
@@ -24,6 +26,7 @@ class _NewsPageState extends State<NewsPage> {
                 Tab(icon: Icon(Icons.event)),
                 Tab(icon: Icon(Icons.account_circle)),
                 Tab(icon: Icon(Icons.emoji_events)),
+                Tab(icon: Icon(Icons.pets)),
                 Tab(icon: Icon(Icons.receipt_rounded)),
                 Tab(icon: Icon(Icons.liquor)),
               ]),
@@ -33,6 +36,7 @@ class _NewsPageState extends State<NewsPage> {
               EventList(),
               UsersList(),
               CompetitionList(),
+              HorseList(),
               ClassesList(),
               AftersList()
             ])
@@ -180,6 +184,74 @@ class UsersList extends StatelessWidget {
   }
 }
 
+class HorseList extends StatelessWidget {
+  const HorseList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: MongoDatabase.getLastHorse(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              color: Colors.white,
+            );
+          } else {
+            if (snapshot.hasError) {
+              return Container(
+                color: Colors.white,
+                child: Center(
+                  child: Text(
+                    'Something went wrong, try again.',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                        elevation: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: SizedBox(
+                              width: 300,
+                              height: 200,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  const Spacer(),
+                                  ListTile(
+                                    title: Text(
+                                        "${snapshot.data![index].name} (${snapshot.data![index].age} ans)"),
+                                    leading: const Icon(
+                                      Icons.pets,
+                                      size: 40,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 73),
+                                    child: Text(
+                                        "Couleur : ${snapshot.data![index].robe}"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 73, top: 20),
+                                    child: Text(
+                                        "Race : ${snapshot.data![index].race}"),
+                                  ),
+                                  const Spacer(),
+                                ],
+                              )),
+                        ));
+                  });
+            }
+          }
+        });
+  }
+}
+
 class CompetitionList extends StatelessWidget {
   const CompetitionList({Key? key}) : super(key: key);
 
@@ -255,68 +327,82 @@ class ClassesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: MongoDatabase.getLastClasses(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              color: Colors.white,
-            );
-          } else {
-            if (snapshot.hasError) {
+    return Scaffold(
+      body:       FutureBuilder(
+          future: MongoDatabase.getLastClasses(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
                 color: Colors.white,
-                child: Center(
-                  child: Text(
-                    'Something went wrong, try again.',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
               );
             } else {
-              return ListView.builder(
-                  itemCount: snapshot.data?.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                        elevation: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: SizedBox(
-                              width: 300,
-                              height: 200,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  const Spacer(),
-                                  ListTile(
-                                    title: Text(snapshot.data![index].name,
-                                        softWrap: true),
-                                    subtitle: Text(
-                                        "Type d'événement : ${snapshot.data![index].eventType}"),
-                                    leading: const Icon(
-                                      Icons.event,
-                                      size: 40,
+              if (snapshot.hasError) {
+                return Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Text(
+                      'Something went wrong, try again.',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                  ),
+                );
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          elevation: 1,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: SizedBox(
+                                width: 300,
+                                height: 200,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    const Spacer(),
+                                    ListTile(
+                                      title: Text(snapshot.data![index].name,
+                                          softWrap: true),
+                                      subtitle: Text(
+                                          "Type d'événement : ${snapshot.data![index].eventType}"),
+                                      leading: const Icon(
+                                        Icons.event,
+                                        size: 40,
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 73),
-                                    child:
-                                    Text(snapshot.data![index].description),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 73, top: 20),
-                                    child: Text(
-                                        "adresse : ${snapshot.data![index].address}"),
-                                  ),
-                                  const Spacer(),
-                                ],
-                              )),
-                        ));
-                  });
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 73),
+                                      child:
+                                      Text(snapshot.data![index].description),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 73, top: 20),
+                                      child: Text(
+                                          "adresse : ${snapshot.data![index].address}"),
+                                    ),
+                                    const Spacer(),
+                                  ],
+                                )
+                            ),
+                          )
+                      );
+                    }
+                );
+              }
             }
           }
-        });
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed('AddCours');
+        },
+        tooltip: 'Add Card',
+        child: const Icon(Icons.add),
+      ), //
+    );
   }
 }
 

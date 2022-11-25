@@ -48,7 +48,6 @@ class _ListHorseState extends State<ListHorse> {
   Widget build(BuildContext context) {
     List<Card> ownerList = [];
     listHorse =  ModalRoute.of(context)!.settings.arguments as List<List<Horse>>;
-
     void _openHorse(){
 
     }
