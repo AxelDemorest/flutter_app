@@ -35,7 +35,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
 
   @override
   Widget build(BuildContext context) {
-    horse =  ModalRoute.of(context)!.settings.arguments as Horse;
+    horse = ModalRoute.of(context)!.settings.arguments as Horse;
 
     setState(
       () {
