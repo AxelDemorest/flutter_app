@@ -29,6 +29,7 @@ class _ProfileHorseState extends State<ProfileHorse> {
   var robe = TextEditingController();
   var race = TextEditingController();
   var sex = TextEditingController();
+  var imageLink = TextEditingController();
 
   late Horse horse;
 
@@ -36,37 +37,13 @@ class _ProfileHorseState extends State<ProfileHorse> {
   Widget build(BuildContext context) {
     horse =  ModalRoute.of(context)!.settings.arguments as Horse;
 
-    Future<File> saveImgHorse(String imagePath) async {
-      final directory = await getApplicationDocumentsDirectory();
-      final name = '${basename(imagePath)}${(math.Random().nextDouble())}';
-      final image =  File('$directory/$name');
-
-      return File(imagePath).copy(image.path);
-    }
-
-    Future getImage(ImageSource source) async {
-      try{
-        final image = await ImagePicker().pickImage(source: source);
-
-        if (image == null) return;
-
-        final imgTemp = await saveImgHorse(image.path);
-
-        setState(() {
-          _image = imgTemp;
-        });
-      }
-      catch (e){
-        print("Error: $e");
-      }
-    }
-
     setState(
       () {
         name.text = horse.name;
         age.text = '${horse.age}';
         robe.text = horse.robe;
         race.text = horse.race;
+        imageLink.text = horse.image;
       },
     );
 
@@ -193,19 +170,23 @@ class _ProfileHorseState extends State<ProfileHorse> {
                                 );
                               }).toList(),
                             ),
-                            ElevatedButton(
-                                onPressed: (){
-                                  getImage(ImageSource.gallery);
-                                },
-                                child:
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text('Image de mon cheval'),
-                                        Icon(Icons.image)
-                                      ],
-                                    )
-                            )
+                            Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: TextFormField(
+                                  controller: imageLink,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Entrez une image',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Veuillez écrire une image correct';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                )
+                            ),
                           ]),
                         ),
                       ),

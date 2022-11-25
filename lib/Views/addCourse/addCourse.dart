@@ -358,22 +358,14 @@ class _AddCourseState extends State<AddCourse> {
                                   'Description d\'un cours',
                                   'une adresse',
                                   'classes',
-                                  rider,
+                                  "",
                                   'trop fort'
                                 );
 
-                                var courseJson = {
-                                  '_id': course.id,
-                                  'name': course.name,
-                                  'date': course.date,
-                                  'description': course.description,
-                                  'address': course.address,
-                                  'eventType': course.eventType,
-                                  'rider': course.rider,
-                                  'level': course.level
-                                };
 
-                                await MongoDatabase.insertCourse(courseJson);
+                                var test = await MongoDatabase.insertCourse(course.toMap());
+                                print(test);
+
                               }
                             },
                             child: const Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Views/addCourse/addCourse.dart';
 import 'package:flutter_app/Views/home/NavBar.dart';
 import 'package:flutter_app/Views/home/home.dart';
 import 'package:flutter_app/Views/news/news.dart';
