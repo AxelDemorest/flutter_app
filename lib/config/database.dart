@@ -10,6 +10,7 @@ import 'package:flutter_app/constants.dart';
 
 class MongoDatabase {
   static var db;
+  static var result;
   static connect() async {
     db = await Db.create(mongoUrl);
     await db.open();
@@ -17,7 +18,6 @@ class MongoDatabase {
 
   //Verifie si l'email et le mot passe correspondent à un User dans la BDD
   static Future<Object?> getUserLogin(email, password) async {
-    var result;
     try {
       //Recherche dans la BDD un User qui possede l'email et le mot de passe
       //exact qui à été envoyé dans le formulaire
@@ -25,6 +25,7 @@ class MongoDatabase {
           where.eq('email', email).and(where.eq('password', password)));
       //Si le resultat n'est pas vide retourne vrai
       if (result.length > 0) {
+        result = User.fromJson(result);
         return result;
       } else {
         return null;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Models/Users/userModel.dart';
 
 import '../../config/database.dart';
 
@@ -92,7 +93,7 @@ class _LoginState extends State<Login> {
                 //... Si le formulaire est rempli ...
                 if (formKey.currentState!.validate()) {
                   //... on appel la fonction getUserLogin
-                  var result = await MongoDatabase.getUserLogin(
+                  await MongoDatabase.getUserLogin(
                           emailController.text, passwordController.text)
                       .then((result) {
                     setState(() {
@@ -103,10 +104,10 @@ class _LoginState extends State<Login> {
                   if (logged != null) {
                     // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Connecté')),
+                      const SnackBar(content: Text('Connect')),
                     );
                     // ignore: use_build_context_synchronously
-                    Navigator.pushReplacementNamed(context, 'Navigator')
+                    Navigator.pushReplacementNamed(context, 'Navigator', arguments: logged)
                         .then((_) => setState(() {}));
                   } else {
                     // ignore: use_build_context_synchronously
