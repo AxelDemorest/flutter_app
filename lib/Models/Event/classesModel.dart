@@ -6,4 +6,17 @@ class Classes extends Event{
 
   Classes(super.id, super.name, super.date, super.description, super.address, super.eventType, this.rider, this.level);
 
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      '_id': id,
+      'name': name,
+      'date': date,
+      'description': description,
+      'address': address,
+      'eventType': eventType,
+      'rider': rider,
+      'level': level
+    };
+  }
 }

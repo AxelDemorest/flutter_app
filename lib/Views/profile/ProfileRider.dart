@@ -106,7 +106,7 @@ class _ProfileRiderPageState extends State<ProfileRiderPage> {
                       /*Navigator.of(context)
                           .pushNamed('listHorse', arguments: listHorse);*/
                     },
-                    child: const Text("Mes Cheveaux")),
+                    child: const Text("Mes chevaux")),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

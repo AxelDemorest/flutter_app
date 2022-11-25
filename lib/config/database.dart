@@ -47,10 +47,10 @@ class MongoDatabase {
 
   static Future<Object?> insertCourse(Object course) async {
     try {
-      var result = await db.collection(eventCollection).insertOne(course);
+      var result = await db.collection(userCollection).insertOne(course);
       return result;
     } catch (e) {
-      e.toString();
+      print(e.toString());
     }
     return null;
   }
