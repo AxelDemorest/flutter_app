@@ -37,11 +37,12 @@ class MongoDatabase {
   static Future<Object?> insertUser(Object user) async {
     try {
       var result = await db.collection(userCollection).insertOne(user);
+      print('Mon r : $result');
       return result;
     } catch (e) {
+      print('Mon e: $e');
       e.toString();
     }
-    return null;
   }
 
   static Future<Object?> insertCourse(Object course) async {

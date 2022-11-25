@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Views/news/news.dart';
 import 'package:flutter_app/Views/profile/profileRider.dart';
 
+import '../../Models/Users/userClass.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,6 +20,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    var user = ModalRoute.of(context)!.settings.arguments;
+    print('  off : $user');
     return Scaffold(
         body: Center(
           child: pages[_currentIndex],

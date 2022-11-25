@@ -4,6 +4,9 @@ import 'package:flutter_app/Models/Users/userModel.dart';
 import 'package:flutter_app/config/database.dart';
 import 'package:mongo_dart/mongo_dart.dart' as M;
 
+import '../../Models/Users/userClass.dart';
+import '../../Models/horseModel.dart';
+
 class Register extends StatefulWidget {
   const Register({Key? key, required this.title}) : super(key: key);
 
@@ -246,30 +249,28 @@ class _RegisterState extends State<Register> {
                                                 ),
                                               ));
                                             } else {
-                                              User user = User(
-                                                  M.ObjectId(),
-                                                  usernameController.text,
-                                                  firstNameController.text,
-                                                  lastNameController.text,
-                                                  mailController.text,
-                                                  passwordController.text,
-                                                  phoneController.text,
-                                                  int.parse(ageController.text),
-                                                  DateTime.now());
+                                              Horse h =
+                                              Horse(M.ObjectId(), "Caramele", 15, "Blanc", "Poney", "0", "3", "");
+                                              List<Horse> listOwnerHorse = [h];
+                                              Rider rider = Rider(
+                                                  id: M.ObjectId(),
+                                                  username: usernameController.text,
+                                                  name: firstNameController.text,
+                                                  lastname: lastNameController.text,
+                                                  email: mailController.text,
+                                                  password: passwordController.text,
+                                                  phone: phoneController.hashCode,
+                                                  age: ageController.hashCode,
+                                                  createdAt: DateTime.now(),
+                                                  linkFee: '',
+                                                  isDp: true,
+                                                  isOwner: true,
+                                                  admin: false,
+                                                  listOwnerHorse: [],
+                                                  listDpHorse: []
+                                              );
 
-                                              var userJson = {
-                                                '_id': user.id,
-                                                'username': user.username,
-                                                'name': user.name,
-                                                'lastName': user.lastName,
-                                                'email': user.email,
-                                                'password': user.password,
-                                                'phone': user.phone,
-                                                'age': user.age,
-                                                'createdAt': user.createdAt,
-                                              };
-                                              await MongoDatabase.insertUser(
-                                                  userJson);
+                                              await MongoDatabase.insertUser(rider.toJson());
 
                                               Navigator.of(context).pop();
                                             }
